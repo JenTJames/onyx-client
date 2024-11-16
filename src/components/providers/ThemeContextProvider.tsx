@@ -5,10 +5,8 @@ import ThemeContext from "../../store/ThemeContext";
 const ThemeContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<Theme>("light");
 
-  const toggleTheme = (newTheme?: Theme) => {
-    if (!newTheme)
-      setTheme((currentState) => (currentState === "light" ? "dark" : "light"));
-    else setTheme(newTheme);
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
   return (

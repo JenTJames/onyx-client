@@ -1,8 +1,8 @@
 import Theme from "./Theme.type";
 
 type ThemeContextType = {
-  theme: string;
-  toggleTheme: (newTheme: Theme) => void;
+  theme: Theme;
+  toggleTheme: () => void;
 };
 
 export default ThemeContextType;
