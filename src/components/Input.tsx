@@ -1,8 +1,8 @@
-import InputType from "../types/Input.interface";
 import { Controller } from "react-hook-form";
 import { Text, TextField } from "@radix-ui/themes";
+import InputProps from "../types/props/InputProps.interface";
 
-const Input: React.FC<InputType> = ({
+const Input: React.FC<InputProps> = ({
   name,
   label,
   control,

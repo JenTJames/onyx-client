@@ -1,7 +1,7 @@
 import { Text } from "@radix-ui/themes";
-import { BrandType } from "../types/Brand.interface";
+import BrandProps from "../types/props/BrandProps.interface";
 
-const Brand: React.FC<BrandType> = ({ showLabel = true }) => {
+const Brand: React.FC<BrandProps> = ({ showLabel = true }) => {
   return (
     <div className="flex items-center gap-2">
       <svg
