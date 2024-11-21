@@ -1,3 +1,3 @@
-type Theme = "light" | "dark" | "inherit";
+type Theme = "light" | "dark";
 
 export default Theme;
