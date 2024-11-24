@@ -3,9 +3,10 @@ import useHttp from "../hooks/use-http";
 import Input from "../components/Input";
 import AuthLayout from "../layout/AuthLayout";
 import { Link as RouterLink } from "react-router-dom";
-import { Button, Card, Heading, Link, Separator, Text } from "@radix-ui/themes";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { requiredInputMessage } from "../lib/globals";
+import { CheckCircledIcon } from "@radix-ui/react-icons";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { Button, Card, Heading, Link, Separator, Text } from "@radix-ui/themes";
 
 const SignupPage = () => {
   const { control, handleSubmit, setError } = useForm();
@@ -94,6 +95,7 @@ const SignupPage = () => {
             type="password"
           />
           <Button type="submit" loading={isLoading}>
+            <CheckCircledIcon />
             Sign Up
           </Button>
           <Separator my="2" size="4" />

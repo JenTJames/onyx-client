@@ -1,10 +1,15 @@
-import Input from "../components/Input";
 import { toast } from "sonner";
+import Input from "../components/Input";
 import useHttp from "../hooks/use-http";
 import AuthLayout from "../layout/AuthLayout";
 import { Link as RouterLink } from "react-router-dom";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Card, Heading, Text, Button, Link, Separator } from "@radix-ui/themes";
+import {
+  EnvelopeClosedIcon,
+  LockClosedIcon,
+  CheckCircledIcon,
+} from "@radix-ui/react-icons";
 
 const SigninPage = () => {
   const { control, handleSubmit } = useForm();
@@ -37,12 +42,19 @@ const SigninPage = () => {
               Welcome back! Please enter your details to continue
             </Text>
           </div>
-          <Input control={control} label="Email" name="email" type="email" />
+          <Input
+            control={control}
+            label="Email"
+            name="email"
+            type="email"
+            startAdornment={<EnvelopeClosedIcon />}
+          />
           <Input
             control={control}
             label="Password"
             name="password"
             type="password"
+            startAdornment={<LockClosedIcon />}
           />
           <div className="flex justify-end">
             <Link asChild weight="medium" size="1">
@@ -50,6 +62,7 @@ const SigninPage = () => {
             </Link>
           </div>
           <Button type="submit" loading={isLoading}>
+            <CheckCircledIcon />
             Sign In
           </Button>
           <Separator my="2" size="4" />
