@@ -3,7 +3,7 @@ import useHttp from "../hooks/use-http";
 import Input from "../components/Input";
 import AuthLayout from "../layout/AuthLayout";
 import { Link as RouterLink } from "react-router-dom";
-import { Button, Card, Heading, Link, Text } from "@radix-ui/themes";
+import { Button, Card, Heading, Link, Separator, Text } from "@radix-ui/themes";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { requiredInputMessage } from "../lib/globals";
 
@@ -96,13 +96,14 @@ const SignupPage = () => {
           <Button type="submit" loading={isLoading}>
             Sign Up
           </Button>
+          <Separator my="2" size="4" />
+          <div className="flex items-center justify-center gap-1">
+            <Text size="2">Already have an account?</Text>
+            <Link asChild weight="medium" size="2">
+              <RouterLink to="/sign-in">Sign In</RouterLink>
+            </Link>
+          </div>
         </form>
-        <div className="flex items-center justify-center gap-1 mt-5">
-          <Text size="2">Already have an account?</Text>
-          <Link asChild weight="medium" size="2">
-            <RouterLink to="/sign-in">Sign In</RouterLink>
-          </Link>
-        </div>
       </Card>
     </AuthLayout>
   );
