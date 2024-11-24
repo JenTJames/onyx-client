@@ -10,8 +10,10 @@ const SigninPage = () => {
   const { control, handleSubmit } = useForm();
   const { isLoading, requestData } = useHttp();
 
-  const authenticateUser: SubmitHandler<FieldValues> = async () => {
-    const response = await requestData("/users/auth", "POST");
+  const authenticateUser: SubmitHandler<FieldValues> = async (
+    credentials: FieldValues
+  ) => {
+    const response = await requestData("/users/auth", "POST", credentials);
     if (response.isError) {
       if (response.error.status === 401)
         return toast.error("Invalid email or password");
@@ -51,7 +53,7 @@ const SigninPage = () => {
           <div className="flex items-center justify-center gap-1">
             <Text size="2">Don't have an account?</Text>
             <Link asChild weight="medium" size="2">
-              <RouterLink to="/signup">Sign Up</RouterLink>
+              <RouterLink to="/sign-up">Sign Up</RouterLink>
             </Link>
           </div>
         </form>
