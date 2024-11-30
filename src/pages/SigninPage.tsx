@@ -1,7 +1,9 @@
 import { toast } from "sonner";
+import { useContext } from "react";
 import Input from "../components/Input";
 import useHttp from "../hooks/use-http";
 import AuthLayout from "../layout/AuthLayout";
+import AuthContext from "../store/AuthContext";
 import { Link as RouterLink } from "react-router-dom";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Card, Heading, Text, Button, Link, Separator } from "@radix-ui/themes";
@@ -10,21 +12,35 @@ import {
   LockClosedIcon,
   CheckCircledIcon,
 } from "@radix-ui/react-icons";
+import User from "../types/User.interface";
 
 const SigninPage = () => {
+  const authCtx = useContext(AuthContext);
+  if (!authCtx)
+    throw new Error("AuthContext must be used inside AuthContextProvider");
+  const { setUser } = authCtx;
+
   const { control, handleSubmit } = useForm();
   const { isLoading, requestData } = useHttp();
 
   const authenticateUser: SubmitHandler<FieldValues> = async (
     credentials: FieldValues
   ) => {
-    const response = await requestData("/users/auth", "POST", credentials);
+    const response = await requestData<User>(
+      "/users/auth",
+      "POST",
+      credentials
+    );
     if (response.isError) {
-      if (response.error.status === 401)
+      if (response?.error?.status === 401)
         return toast.error("Invalid email or password");
-      toast.error(response.message);
+      return toast.error(response.message);
     }
-    toast.success("Logged in successfully!");
+    if (response.data) {
+      setUser(response.data);
+      localStorage.setItem("userId", response.data.id.toString());
+      toast.success("Logged in successfully!");
+    }
   };
 
   return (
