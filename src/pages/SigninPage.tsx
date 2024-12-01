@@ -4,7 +4,7 @@ import Input from "../components/Input";
 import useHttp from "../hooks/use-http";
 import AuthLayout from "../layout/AuthLayout";
 import AuthContext from "../store/AuthContext";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Card, Heading, Text, Button, Link, Separator } from "@radix-ui/themes";
 import {
@@ -15,6 +15,8 @@ import {
 import User from "../types/User.interface";
 
 const SigninPage = () => {
+  const navigate = useNavigate();
+
   const authCtx = useContext(AuthContext);
   if (!authCtx)
     throw new Error("AuthContext must be used inside AuthContextProvider");
@@ -40,6 +42,7 @@ const SigninPage = () => {
       setUser(response.data);
       localStorage.setItem("userId", response.data.id.toString());
       toast.success("Logged in successfully!");
+      navigate("/tasks");
     }
   };
 
