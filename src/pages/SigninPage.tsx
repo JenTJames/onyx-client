@@ -42,7 +42,7 @@ const SigninPage = () => {
       setUser(response.data);
       localStorage.setItem("userId", response.data.id.toString());
       toast.success("Logged in successfully!");
-      navigate("/tasks");
+      navigate("/projects");
     }
   };
 
