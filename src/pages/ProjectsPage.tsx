@@ -1,8 +1,8 @@
 import { Button, Heading } from "@radix-ui/themes";
 import RootLayout from "../layout/RootLayout";
-import { PlusCircledIcon } from "@radix-ui/react-icons";
+import Paginator from "../components/Paginator";
 import Project from "../types/Project.interface";
-import ProjectSummary from "../components/ProjectSummary";
+import { PlusCircledIcon } from "@radix-ui/react-icons";
 
 const projects: Project[] = [
   {
@@ -101,11 +101,7 @@ const ProjectsPage = () => {
           Create Project
         </Button>
       </div>
-      <div className="grid grid-cols-4 gap-3">
-        {projects.map((project) => (
-          <ProjectSummary key={project.id} project={project} />
-        ))}
-      </div>
+      <Paginator items={projects} about="projects" />
     </RootLayout>
   );
 };

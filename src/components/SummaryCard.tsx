@@ -8,24 +8,29 @@ import {
   Separator,
   Text,
 } from "@radix-ui/themes";
-import ProjectSummaryProps from "../types/props/ProjectSummaryProps.interface";
 import { BackpackIcon } from "@radix-ui/react-icons";
+import SummaryCardProps from "../types/props/SummaryCardProps";
 
-const ProjectSummary: React.FC<ProjectSummaryProps> = ({ project }) => {
+const SummaryCard: React.FC<SummaryCardProps> = ({
+  id,
+  description,
+  title,
+  progress,
+}) => {
   return (
     <Card className="w-full h-[17rem]">
       <div className="flex flex-col gap-3">
         <div className="flex justify-between items-center">
           <div className="flex flex-col gap-1">
-            <Heading size="4">{project.title}</Heading>
+            <Heading size="4">{title}</Heading>
             <Badge color="lime" className="w-fit">
-              {project.id}
+              {id}
             </Badge>
           </div>
           <Avatar radius="full" fallback={<BackpackIcon />} />
         </div>
         <Text className="line-clamp-6" size="2" color="gray">
-          {project.description ? project.description : "No Description found"}
+          {description ? description : "No Description found"}
         </Text>
         <Separator size="4" />
         <div className="flex justify-between items-center gap-5">
@@ -33,7 +38,7 @@ const ProjectSummary: React.FC<ProjectSummaryProps> = ({ project }) => {
             <Text size="1" weight="medium">
               Progress
             </Text>
-            <Progress value={project.progress} />
+            <Progress value={progress} />
           </div>
           <Button variant="soft">View More</Button>
         </div>
@@ -42,4 +47,4 @@ const ProjectSummary: React.FC<ProjectSummaryProps> = ({ project }) => {
   );
 };
 
-export default ProjectSummary;
+export default SummaryCard;
