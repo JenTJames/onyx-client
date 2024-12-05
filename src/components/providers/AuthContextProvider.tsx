@@ -7,11 +7,14 @@ const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
 
+  const clearUser = () => setLoggedInUser(null);
+
   return (
     <AuthContext.Provider
       value={{
         user: loggedInUser,
         setUser: setLoggedInUser,
+        clearUser,
       }}
     >
       {children}
