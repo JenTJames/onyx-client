@@ -1,7 +1,12 @@
 import Brand from "./Brand";
 import ThemeSwitch from "./ThemeSwitch";
 import { useNavigate } from "react-router-dom";
-import { PersonIcon } from "@radix-ui/react-icons";
+import {
+  ExitIcon,
+  GearIcon,
+  MixerHorizontalIcon,
+  PersonIcon,
+} from "@radix-ui/react-icons";
 import { DropdownMenu, IconButton } from "@radix-ui/themes";
 import { useContext } from "react";
 import AuthContext from "../store/AuthContext";
@@ -31,11 +36,17 @@ const Topbar = () => {
             </IconButton>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content>
-            <DropdownMenu.Item>Account</DropdownMenu.Item>
-            <DropdownMenu.Item>Settings</DropdownMenu.Item>
+            <DropdownMenu.Item>
+              <MixerHorizontalIcon />
+              Account
+            </DropdownMenu.Item>
+            <DropdownMenu.Item>
+              <GearIcon />
+              Settings
+            </DropdownMenu.Item>
             <DropdownMenu.Separator />
             <DropdownMenu.Item color="crimson" onClick={logoutHandler}>
-              Logout
+              <ExitIcon /> Logout
             </DropdownMenu.Item>
           </DropdownMenu.Content>
         </DropdownMenu.Root>
