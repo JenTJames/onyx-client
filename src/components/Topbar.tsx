@@ -8,15 +8,12 @@ import {
   PersonIcon,
 } from "@radix-ui/react-icons";
 import { DropdownMenu, IconButton } from "@radix-ui/themes";
-import { useContext } from "react";
-import AuthContext from "../store/AuthContext";
+import useAuth from "../hooks/use-auth";
 
 const Topbar = () => {
   const navigate = useNavigate();
 
-  const authCtx = useContext(AuthContext);
-  if (!authCtx) throw new Error("Topbar must be used inside an AuthContext");
-  const { clearUser } = authCtx;
+  const { clearUser } = useAuth();
 
   const logoutHandler = () => {
     clearUser();
