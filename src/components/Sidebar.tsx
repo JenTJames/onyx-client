@@ -25,8 +25,9 @@ const getNavlinkClassName = (isActive: boolean) =>
 const Sidebar: React.FC<SidebarProps> = ({ isFull }) => {
   return (
     <motion.div
-      initial={{ width: isFull ? 80 : 340 }}
+      initial={{ width: 80 }}
       animate={{ width: isFull ? 340 : 80 }}
+      exit={{ width: 80 }}
       transition={{ duration: 0.3 }}
       className="flex flex-col justify-between h-dvh p-5 bg-[var(--accent-2)] sticky top-0"
     >
@@ -38,6 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isFull }) => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: isFull ? 1 : 0 }}
+          exit={{ opacity: 0 }}
           transition={{ delay: 0.2 }}
         >
           {isFull && (
@@ -59,6 +61,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isFull }) => {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: isFull ? 1 : 0 }}
+                exit={{ opacity: 0 }}
               >
                 <Text size="2" className="truncate">
                   {navLink.label}
@@ -79,6 +82,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isFull }) => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: isFull ? 1 : 0 }}
+            exit={{ opacity: 0 }}
           >
             <Text size="2" className="truncate">
               Help & Support
