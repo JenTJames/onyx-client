@@ -1,16 +1,21 @@
-import Brand from "./Brand";
 import ThemeSwitch from "./ThemeSwitch";
 import { useNavigate } from "react-router-dom";
 import {
+  Cross2Icon,
   ExitIcon,
   GearIcon,
+  HamburgerMenuIcon,
   MixerHorizontalIcon,
   PersonIcon,
 } from "@radix-ui/react-icons";
 import { DropdownMenu, IconButton } from "@radix-ui/themes";
 import useAuth from "../hooks/use-auth";
+import TopbarProps from "../types/props/TopbarProps.interface";
 
-const Topbar = () => {
+const Topbar: React.FC<TopbarProps> = ({
+  toggleSidebar,
+  isSidebarExpanded,
+}) => {
   const navigate = useNavigate();
 
   const { clearUser } = useAuth();
@@ -22,8 +27,10 @@ const Topbar = () => {
   };
 
   return (
-    <div className="flex items-center justify-between py-2 px-4 border-b border-[var(--gray-6)]">
-      <Brand showLabel={false} />
+    <div className="flex items-center sticky top-0 z-40 bg-[var(--gray-1)] justify-between py-2 px-4 border-b border-[var(--gray-6)]">
+      <IconButton variant="ghost" onClick={toggleSidebar}>
+        {isSidebarExpanded ? <Cross2Icon /> : <HamburgerMenuIcon />}
+      </IconButton>
       <div className="flex items-center gap-3">
         <ThemeSwitch />
         <DropdownMenu.Root>
