@@ -1,9 +1,8 @@
-import { Button, Heading } from "@radix-ui/themes";
-import RootLayout from "../layout/RootLayout";
 import Paginator from "../components/Paginator";
 import Project from "../types/Project.interface";
+import { Button, Heading } from "@radix-ui/themes";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
-
+import { useNavigate } from "react-router-dom";
 const projects: Project[] = [
   {
     id: "PR1097",
@@ -92,17 +91,19 @@ const projects: Project[] = [
 ];
 
 const ProjectsPage = () => {
+  const navigate = useNavigate();
+
   return (
-    <RootLayout>
+    <>
       <div className="flex justify-between">
         <Heading>Projects</Heading>
-        <Button>
+        <Button onClick={() => navigate("create")}>
           <PlusCircledIcon />
           Create Project
         </Button>
       </div>
       <Paginator items={projects} about="projects" />
-    </RootLayout>
+    </>
   );
 };
 
