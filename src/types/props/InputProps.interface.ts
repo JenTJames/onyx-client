@@ -1,13 +1,9 @@
 import { ReactNode } from "react";
-import { Control, FieldValues } from "react-hook-form";
 import InputTypes from "../InputTypes.type";
+import FormControlProps from "./FormControlProps.interface";
 
-export default interface InputProps {
-  name: string;
-  label: string;
-  control: Control<FieldValues>;
-  rules?: object;
+export default interface InputProps extends FormControlProps {
   type?: InputTypes;
-  startAdornment?: ReactNode;
   endAdornment?: ReactNode;
+  startAdornment?: ReactNode;
 }
