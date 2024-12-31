@@ -38,7 +38,7 @@ const CreateProjectPage = () => {
   };
 
   return (
-    <div className="flex flex-col gap-3 justify-center items-center">
+    <div className="flex flex-col gap-3 justify-center items-center py-5">
       <Form
         description="Projects help you streamline collaboration by organizing teams,
               tasks, and goals in one place. They provide structure, clarity,
@@ -59,7 +59,7 @@ const CreateProjectPage = () => {
           name="description"
           rows={20}
         />
-        <div className="flex justify-center gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           <Button
             type="button"
             color="crimson"
