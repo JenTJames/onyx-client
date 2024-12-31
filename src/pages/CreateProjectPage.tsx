@@ -8,17 +8,27 @@ import { useNavigate } from "react-router-dom";
 import { requiredInputMessage } from "../lib/globals";
 import { FieldValues, useForm } from "react-hook-form";
 import { CheckCircledIcon } from "@radix-ui/react-icons";
+import useAuth from "../hooks/use-auth";
 
 const CreateProjectPage = () => {
   const { control, handleSubmit, setError } = useForm();
   const { isLoading, requestData } = useHttp();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const createProjectHandler = async (project: FieldValues) => {
-    const response = await requestData<string>("/projects", "POST", project);
+    const projectOwner = user?.id;
+    const projectToSave = { ...project, ownedBy: projectOwner };
+    const response = await requestData<string>(
+      "/projects",
+      "POST",
+      projectToSave
+    );
     if (response.isError) {
+      console.log(response.error?.response?.status);
       if (response.error?.response?.status === 409)
-        return setError("manual", {
+        return setError("title", {
+          type: "manual",
           message: "Another project with the same title already exists.",
         });
       return toast.error(response.message);
