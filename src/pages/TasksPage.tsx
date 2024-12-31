@@ -1,9 +1,8 @@
 import { Button } from "@radix-ui/themes";
 import Task from "../types/Task.interface";
-import RootLayout from "../layout/RootLayout";
 import Datagrid from "../components/Datagrid";
-import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { ColumnDef } from "@tanstack/react-table";
+import { PlusCircledIcon } from "@radix-ui/react-icons";
 
 const columns: ColumnDef<Task>[] = [
   {
@@ -34,7 +33,7 @@ const columns: ColumnDef<Task>[] = [
 
 const TasksPage = () => {
   return (
-    <RootLayout>
+    <>
       <div className="flex justify-end">
         <Button>
           <PlusCircledIcon />
@@ -55,7 +54,7 @@ const TasksPage = () => {
         columns={columns}
         title="Task"
       />
-    </RootLayout>
+    </>
   );
 };
 

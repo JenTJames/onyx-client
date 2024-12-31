@@ -6,6 +6,7 @@ import {
   Heading,
   Progress,
   Separator,
+  Skeleton,
   Text,
 } from "@radix-ui/themes";
 import { BackpackIcon } from "@radix-ui/react-icons";
@@ -15,6 +16,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
   id,
   description,
   title,
+  loading,
   progress,
 }) => {
   return (
@@ -22,25 +24,39 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
       <div className="flex flex-col gap-3">
         <div className="flex justify-between items-center">
           <div className="flex flex-col gap-1">
-            <Heading size="4">{title}</Heading>
-            <Badge color="lime" className="w-fit">
-              {id}
-            </Badge>
+            <Skeleton minWidth="125px" minHeight="20px" loading={loading}>
+              <Heading size="4">{title}</Heading>
+            </Skeleton>
+            <Skeleton minWidth="100px" minHeight="20px" loading={loading}>
+              <Badge color="lime" className="w-fit">
+                {id}
+              </Badge>
+            </Skeleton>
           </div>
-          <Avatar radius="full" fallback={<BackpackIcon />} />
+          <Skeleton loading={loading}>
+            <Avatar radius="full" fallback={<BackpackIcon />} />
+          </Skeleton>
         </div>
-        <Text className="line-clamp-6" size="2" color="gray">
-          {description ? description : "No Description found"}
-        </Text>
-        <Separator size="4" />
+        <Skeleton minWidth="100%" minHeight="130px" loading={loading}>
+          <Text className="line-clamp-6" size="2" color="gray">
+            {description ? description : "No Description found"}
+          </Text>
+        </Skeleton>
+        <Skeleton loading={loading}>
+          <Separator size="4" />
+        </Skeleton>
         <div className="flex justify-between items-center gap-5">
           <div className="flex flex-col w-full gap-1">
-            <Text size="1" weight="medium">
-              Progress
-            </Text>
-            <Progress value={progress} />
+            <Skeleton loading={loading}>
+              <Text size="1" weight="medium">
+                Progress
+              </Text>
+              <Progress value={progress} />
+            </Skeleton>
           </div>
-          <Button variant="soft">View More</Button>
+          <Skeleton loading={loading}>
+            <Button variant="soft">View More</Button>
+          </Skeleton>
         </div>
       </div>
     </Card>

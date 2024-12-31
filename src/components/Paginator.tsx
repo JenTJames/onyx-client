@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { IconButton, Select, Text, TextField } from "@radix-ui/themes";
+import {
+  IconButton,
+  Select,
+  Skeleton,
+  Text,
+  TextField,
+} from "@radix-ui/themes";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -9,13 +15,23 @@ import {
 } from "@radix-ui/react-icons";
 import SummaryCard from "./SummaryCard";
 import PaginatorProps from "../types/props/PaginatorProps.interface";
+import Project from "../types/Project.interface";
 
 const defaultPageSizes = [8, 12, 16, 20];
+const loadingItems: Project[] = Array.from({ length: defaultPageSizes[0] }).map(
+  (_, index) => ({
+    id: index.toString(),
+    title: "",
+    description: "",
+    progress: 0,
+  })
+);
 
 const Paginator = ({
   pageSizes = [],
   items,
   about = "items",
+  loading,
 }: PaginatorProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(
@@ -63,17 +79,19 @@ const Paginator = ({
     <div className="flex flex-col gap-3">
       {/* Search bar */}
       <div className="flex justify-between items-center mb-3">
-        <TextField.Root
-          size="2"
-          placeholder="Search items..."
-          value={searchQuery}
-          onChange={handleSearchChange}
-          className="w-full"
-        >
-          <TextField.Slot>
-            <MagnifyingGlassIcon />
-          </TextField.Slot>
-        </TextField.Root>
+        <Skeleton loading={loading}>
+          <TextField.Root
+            size="2"
+            placeholder="Search items..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+            className="w-full"
+          >
+            <TextField.Slot>
+              <MagnifyingGlassIcon />
+            </TextField.Slot>
+          </TextField.Root>
+        </Skeleton>
       </div>
 
       {/* Conditional rendering for different scenarios */}
@@ -93,77 +111,85 @@ const Paginator = ({
         <>
           {/* Display items */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {displayedItems.map((item) => (
-              <SummaryCard
-                key={item.id}
-                id={item.id}
-                description={item.description}
-                progress={item.progress}
-                title={item.title}
-              />
-            ))}
+            {loading
+              ? loadingItems.map((_, index) => (
+                  <SummaryCard key={index} loading />
+                ))
+              : displayedItems.map((item) => (
+                  <SummaryCard
+                    key={item.id}
+                    id={item.id}
+                    description={item.description}
+                    progress={item.progress || 0}
+                    title={item.title}
+                    loading={loading}
+                  />
+                ))}
           </div>
-
           {/* Pagination controls */}
           <div className="flex w-full gap-3 justify-end items-center p-3">
-            <IconButton
-              size="1"
-              variant="ghost"
-              radius="full"
-              onClick={() => goToPage(1)}
-              disabled={currentPage === 1}
-            >
-              <DoubleArrowLeftIcon />
-            </IconButton>
-            <IconButton
-              size="1"
-              variant="ghost"
-              radius="full"
-              onClick={previousPage}
-              disabled={currentPage === 1}
-            >
-              <ChevronLeftIcon />
-            </IconButton>
-            <IconButton
-              size="1"
-              variant="ghost"
-              radius="full"
-              onClick={nextPage}
-              disabled={currentPage === totalPages}
-            >
-              <ChevronRightIcon />
-            </IconButton>
-            <IconButton
-              size="1"
-              variant="ghost"
-              radius="full"
-              onClick={() => goToPage(totalPages)}
-              disabled={currentPage === totalPages}
-            >
-              <DoubleArrowRightIcon />
-            </IconButton>
-            <div className="flex gap-2 items-center">
-              <Text size="1">Showing</Text>
-              <Select.Root
+            <Skeleton loading={loading}>
+              <IconButton
                 size="1"
-                defaultValue={pageSize.toString()}
-                onValueChange={handlePageSizeChange}
+                variant="ghost"
+                radius="full"
+                onClick={() => goToPage(1)}
+                disabled={currentPage === 1}
               >
-                <Select.Trigger />
-                <Select.Content>
-                  {(pageSizes.length > 0 ? pageSizes : defaultPageSizes).map(
-                    (pageSize) => (
-                      <Select.Item key={pageSize} value={pageSize.toString()}>
-                        {pageSize}
-                      </Select.Item>
-                    )
-                  )}
-                </Select.Content>
-              </Select.Root>
-              <Text size="1">
-                Items of {totalItems} (Page {currentPage} of {totalPages})
-              </Text>
-            </div>
+                <DoubleArrowLeftIcon />
+              </IconButton>
+              <IconButton
+                size="1"
+                variant="ghost"
+                radius="full"
+                onClick={previousPage}
+                disabled={currentPage === 1}
+              >
+                <ChevronLeftIcon />
+              </IconButton>
+              <IconButton
+                size="1"
+                variant="ghost"
+                radius="full"
+                onClick={nextPage}
+                disabled={currentPage === totalPages}
+              >
+                <ChevronRightIcon />
+              </IconButton>
+              <IconButton
+                size="1"
+                variant="ghost"
+                radius="full"
+                onClick={() => goToPage(totalPages)}
+                disabled={currentPage === totalPages}
+              >
+                <DoubleArrowRightIcon />
+              </IconButton>
+            </Skeleton>
+            <Skeleton loading={loading}>
+              <div className="flex gap-2 items-center">
+                <Text size="1">Showing</Text>
+                <Select.Root
+                  size="1"
+                  defaultValue={pageSize.toString()}
+                  onValueChange={handlePageSizeChange}
+                >
+                  <Select.Trigger />
+                  <Select.Content>
+                    {(pageSizes.length > 0 ? pageSizes : defaultPageSizes).map(
+                      (pageSize) => (
+                        <Select.Item key={pageSize} value={pageSize.toString()}>
+                          {pageSize}
+                        </Select.Item>
+                      )
+                    )}
+                  </Select.Content>
+                </Select.Root>
+                <Text size="1">
+                  Items of {totalItems} (Page {currentPage} of {totalPages})
+                </Text>
+              </div>
+            </Skeleton>
           </div>
         </>
       )}
