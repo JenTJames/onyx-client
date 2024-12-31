@@ -21,8 +21,8 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
 }) => {
   return (
     <Card className="w-full h-[17rem]">
-      <div className="flex flex-col gap-3">
-        <div className="flex justify-between items-center">
+      <div className="flex flex-col h-full gap-3">
+        <div className="flex justify-between items-center flex-1">
           <div className="flex flex-col gap-1">
             <Skeleton minWidth="125px" minHeight="20px" loading={loading}>
               <Heading size="4">{title}</Heading>
@@ -37,15 +37,17 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
             <Avatar radius="full" fallback={<BackpackIcon />} />
           </Skeleton>
         </div>
-        <Skeleton minWidth="100%" minHeight="130px" loading={loading}>
-          <Text className="line-clamp-6" size="2" color="gray">
-            {description ? description : "No Description found"}
-          </Text>
-        </Skeleton>
+        <div className="flex-1 flex justify-center items-center">
+          <Skeleton minWidth="100%" minHeight="130px" loading={loading}>
+            <Text className="line-clamp-6" size="2" color="gray">
+              {description ? description : "No Description found"}
+            </Text>
+          </Skeleton>
+        </div>
         <Skeleton loading={loading}>
           <Separator size="4" />
         </Skeleton>
-        <div className="flex justify-between items-center gap-5">
+        <div className="flex justify-between items-center gap-5 flex-0">
           <div className="flex flex-col w-full gap-1">
             <Skeleton loading={loading}>
               <Text size="1" weight="medium">
