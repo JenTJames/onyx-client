@@ -2,13 +2,13 @@ import { toast } from "sonner";
 import Form from "../components/Form";
 import useHttp from "../hooks/use-http";
 import Input from "../components/Input";
+import useAuth from "../hooks/use-auth";
 import { Button } from "@radix-ui/themes";
 import TextArea from "../components/TextArea";
 import { useNavigate } from "react-router-dom";
 import { requiredInputMessage } from "../lib/globals";
 import { FieldValues, useForm } from "react-hook-form";
-import { CheckCircledIcon } from "@radix-ui/react-icons";
-import useAuth from "../hooks/use-auth";
+import { CheckCircledIcon, Cross2Icon } from "@radix-ui/react-icons";
 
 const CreateProjectPage = () => {
   const { control, handleSubmit, setError } = useForm();
@@ -59,10 +59,23 @@ const CreateProjectPage = () => {
           name="description"
           rows={20}
         />
-        <Button loading={isLoading} size="3" type="submit">
-          <CheckCircledIcon />
-          Create Project
-        </Button>
+        <div className="flex justify-center gap-3">
+          <Button
+            type="button"
+            color="crimson"
+            variant="soft"
+            loading={isLoading}
+            size="3"
+            onClick={() => navigate("/projects")}
+          >
+            <Cross2Icon />
+            Cancel
+          </Button>
+          <Button loading={isLoading} size="3">
+            <CheckCircledIcon />
+            Create Project
+          </Button>
+        </div>
       </Form>
     </div>
   );
