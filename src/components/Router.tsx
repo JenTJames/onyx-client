@@ -5,6 +5,7 @@ import ProjectsPage from "../pages/ProjectsPage";
 import CreateProjectPage from "../pages/CreateProjectPage";
 import { Routes, Route, Navigate } from "react-router-dom";
 import RootLayout from "../layout/RootLayout";
+import ProjectOverviewPage from "../pages/ProjectOverviewPage";
 
 const Router = () => {
   return (
@@ -15,6 +16,7 @@ const Router = () => {
       <Route path="/projects" element={<RootLayout />}>
         <Route index element={<ProjectsPage />} />
         <Route path="create" element={<CreateProjectPage />} />
+        <Route path=":projectId/overview" element={<ProjectOverviewPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/sign-in" />} />
     </Routes>
