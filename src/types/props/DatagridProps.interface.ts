@@ -5,4 +5,5 @@ export default interface DatagridProps<T> {
   columns: ColumnDef<T, unknown>[];
   loading?: boolean;
   title?: string;
+  hidePagination?: boolean;
 }

@@ -16,7 +16,13 @@ import DatagridProps from "../types/props/DatagridProps.interface";
 
 const pageSizes: number[] = [10, 25, 50, 100];
 
-const Datagrid = <T,>({ data, columns, loading, title }: DatagridProps<T>) => {
+const Datagrid = <T,>({
+  data,
+  columns,
+  loading,
+  title,
+  hidePagination = false,
+}: DatagridProps<T>) => {
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: pageSizes[0],
@@ -90,61 +96,64 @@ const Datagrid = <T,>({ data, columns, loading, title }: DatagridProps<T>) => {
           )}
         </Table.Body>
       </Table.Root>
-      <div className="flex w-full gap-3 justify-end items-center p-3">
-        <IconButton
-          size="1"
-          variant="ghost"
-          radius="full"
-          onClick={() => table.firstPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          <DoubleArrowLeftIcon />
-        </IconButton>
-        <IconButton
-          size="1"
-          variant="ghost"
-          radius="full"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          <ChevronLeftIcon />
-        </IconButton>
-        <IconButton
-          size="1"
-          variant="ghost"
-          radius="full"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          <ChevronRightIcon />
-        </IconButton>
-        <IconButton
-          size="1"
-          variant="ghost"
-          radius="full"
-          onClick={() => table.lastPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          <DoubleArrowRightIcon />
-        </IconButton>
-        <div className="flex gap-2 itemms-center">
-          <Text size="1">Showing</Text>
-          <Select.Root
+      {!hidePagination && (
+        <div className="flex w-full gap-3 justify-end items-center p-3">
+          <IconButton
             size="1"
-            onValueChange={(value) => table.setPageSize(+value)}
-            value={table.getState().pagination.pageSize.toString()}
+            variant="ghost"
+            radius="full"
+            onClick={() => table.firstPage()}
+            disabled={!table.getCanPreviousPage()}
           >
-            <Select.Content>
-              {pageSizes.map((pageSize) => (
-                <Select.Item key={pageSize} value={pageSize.toString()}>
-                  {pageSize}
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select.Root>
-          <Text size="1">Rows</Text>
+            <DoubleArrowLeftIcon />
+          </IconButton>
+          <IconButton
+            size="1"
+            variant="ghost"
+            radius="full"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <ChevronLeftIcon />
+          </IconButton>
+          <IconButton
+            size="1"
+            variant="ghost"
+            radius="full"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            <ChevronRightIcon />
+          </IconButton>
+          <IconButton
+            size="1"
+            variant="ghost"
+            radius="full"
+            onClick={() => table.lastPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            <DoubleArrowRightIcon />
+          </IconButton>
+          <div className="flex gap-2 items-center">
+            <Text size="1">Showing</Text>
+            <Select.Root
+              size="1"
+              onValueChange={(value) => table.setPageSize(+value)}
+              value={table.getState().pagination.pageSize.toString()}
+            >
+              <Select.Trigger />
+              <Select.Content>
+                {pageSizes.map((pageSize) => (
+                  <Select.Item key={pageSize} value={pageSize.toString()}>
+                    {pageSize}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Root>
+            <Text size="1">Rows</Text>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

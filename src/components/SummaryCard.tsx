@@ -11,6 +11,7 @@ import {
 } from "@radix-ui/themes";
 import { BackpackIcon } from "@radix-ui/react-icons";
 import SummaryCardProps from "../types/props/SummaryCardProps";
+import { useNavigate } from "react-router-dom";
 
 const SummaryCard: React.FC<SummaryCardProps> = ({
   id,
@@ -19,6 +20,10 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
   loading,
   progress,
 }) => {
+  const navigate = useNavigate();
+  const openProjectOverviewPage = async () => {
+    navigate(`/projects/${id}/overview`);
+  };
   return (
     <Card className="w-full h-[17rem]">
       <div className="flex flex-col h-full gap-3">
@@ -57,7 +62,9 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
             </Skeleton>
           </div>
           <Skeleton loading={loading}>
-            <Button variant="soft">View More</Button>
+            <Button onClick={openProjectOverviewPage} variant="soft">
+              View More
+            </Button>
           </Skeleton>
         </div>
       </div>
